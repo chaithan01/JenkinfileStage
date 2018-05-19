@@ -26,7 +26,7 @@ pipeline {
     }
 }
 
-def isLabelAction(FlowNode flowNode){
+def isLabelAction(FlowNode flowNode) {
     def actions = flowNode.getActions()
     for (Action action: actions){
         if (action instanceof LabelAction) {
@@ -36,17 +36,17 @@ def isLabelAction(FlowNode flowNode){
     return false
 }
 
-def getStartStepNode(List<FlowNode> flowNodes){
+def getStartStepNode(List<FlowNode> flowNodes) {
     def currentFlowNode = null
     def labelAction = null
 
-    for (FlowNode flowNode: flowNodes){
+    for (FlowNode flowNode: flowNodes) {
         selectedFlowNode = flowNode
         labelAction = false
-        if (flowNode instanceof StepStartNode){
+        if (flowNode instanceof StepStartNode) {
             labelAction = isLabelAction(flowNode)
         }
-        if (labelAction){
+        if (labelAction) {
             return flowNode
         }
     }
@@ -56,16 +56,16 @@ def getStartStepNode(List<FlowNode> flowNodes){
     return getStartStepNode(selectedFlowNode.getParents())
 }
 
-def getBuildStage(build){
+def getBuildStage(build) {
     def execution = build.getExecution()
     def currentExecutionHeads = execution.getCurrentHeads()
     def startStepNode = getStartStepNode(currentExecutionHeads)
-    if(startStepNode){
+    if(startStepNode) {
         return startStepNode.getDisplayName()
     }
 }
 
-def printlnStageSample(){
+def printlnStageSample() {
     for (job in Hudson.instance.getAllItems(org.jenkinsci.plugins.workflow.job.WorkflowJob)) { 
         for (build in job.builds) {
              println getBuildStage(build)
