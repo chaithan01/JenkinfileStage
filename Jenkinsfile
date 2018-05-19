@@ -69,6 +69,7 @@ def printlnStageSample(){
     for (job in Hudson.instance.getAllItems(org.jenkinsci.plugins.workflow.job.WorkflowJob)) { 
         for (build in job.builds) {
              println getBuildStage(build)
+        }
     }
 }
 
