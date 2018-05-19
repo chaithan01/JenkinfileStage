@@ -1,3 +1,3 @@
 # JenkinfileStage
 
-A sample script to get stage in Jenkinsfile.
+A sample script to get build instance stage in Jenkinsfile.
